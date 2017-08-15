@@ -1,0 +1,184 @@
+﻿<div class="Revere__wrapper questions" id="RevereWrapperQuestions-{{ItemId}}">
+    <h3 class="Revere__item-title">
+        Questions {{#if Name}}about <span>&ldquo;{{{Name}}}&rdquo;</span>{{/if}}
+    </h3>
+    {{#if Questions}}
+    <div class="Revere__questions" id="RevereQuestions-{{ItemId}}" data-itemid="{{ItemId}}">
+        {{#each Questions}}
+        <div class="Revere__question" data-contentid="{{Id}}" id="RevereQuestion-{{Id}}">
+            <div class="Revere__question-info">
+                <h4 class="Revere__question-title">{{Title}}</h4>
+                <em class="Revere__author">
+                    <span>{{{CreateDate}}}</span> <span>{{#if ReviewerNickname}}by {{{ReviewerNickname}}}{{/if}}</span>
+                    {{#if Location}}<span>from {{Location}}</span>{{/if}}
+                </em>
+            </div>
+            <div class="Revere__question-body-wrap">
+                <div class="Revere__question-body">{{{Content}}}</div>
+            </div>
+            {{#if Image}}
+            <div class="Revere__question-image-wrap">
+                <img src="{{Image}}" alt="{{Name}} question image" class="Revere__question-image" />
+            </div>
+            {{/if}}
+            {{#if Responses}}
+            <div class="Revere__responses Revere__question-responses">
+                <h5 class="Revere__responses-header">Answers</h5>
+                {{#each Responses}}
+                <div class="Revere__response-wrap {{CssClass}}" id="RevereQuestionResponse-{{Id}}">
+                    <header class="Revere__response-header">
+                        <div class="Revere__author">
+                            {{#if Nickname}} From: {{{Nickname}}}{{/if}}
+                            {{#if Location}}<span> in {{Location}}</span>{{/if}}
+                            on {{{CreateDate}}}
+                            {{#if Badges}}
+                            <div class="Revere__badges">
+                                {{#each Badges}}
+                                <div class="Revere__badge">
+                                    <img src="{{Image}}" alt="{{Text}}" />
+                                    <span class="Revere__badge-text">{{Text}}</span>
+                                </div>
+                                {{/each}}
+                            </div>
+                            {{/if}}
+                        </div>
+                    </header>
+                    <div class="Revere__response-body-wrap">
+                        <div class="Revere__response-body">{{Content}}</div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+            {{#if ../AllowQAResponses }}
+            <div class="Revere__ask-response" id="RevereResponseRequestHeadline_question-{{Id}}">
+                <p>
+                    Do you have an answer to &ldquo;{{Title}}&rdquo;?
+                </p>
+                <a class="Revere__response-trigger" href="javascript: void(0);" data-id="{{Id}}" data-contenttype="question" data-triggers="RevereResponseForm_question-{{Id}}">Respond</a>
+            </div>
+            <div class="Revere__forms Revere__response-form Revere__question-response" id="RevereResponseForm_question-{{Id}}" data-userid="{{UserId}}" data-contentid="{{Id}}" data-companyid="{{CompanyId}}" data-responsetype="question">
+                <fieldset class="Revere__fieldset Revere__personal">
+                    <legend>About You</legend>
+                    <div class="Revere__response-field Revere__required" id="RevereNicknameGroupQuestions-{{Id}}" data-fieldname="Nickname">
+                        <label class="Revere__label" for="RevereTextNicknameQuestionsResponse-{{Id}}">
+                            your nickname:<span class="error">* required field</span>
+                            <input type="text" class="Revere__textbox Revere__text-nickname" id="RevereTextNicknameQuestionsResponse-{{Id}}" data-reverefield="nicknameResponse" />
+                        </label>
+                    </div>
+                    <div class="Revere__response-field" id="rev-email-group-qa-{{Id}}" data-fieldname="Email">
+                        <label class="Revere__label" for="RevereTextEmailQuestionsResponse-{{Id}}">your email:</label>
+                        <input type="text" class="Revere__textbox Revere__text-email" id="RevereTextEmailQuestionsResponse-{{Id}}" data-reverefield="emailResponse" />
+                    </div>
+                    <div class="Revere__response-field" id="rev-location-group-qa-{{Id}}" data-fieldname="Location">
+                        <label class="Revere__label" for="RevereTextLocationQuestionsResponse-{{Id}}">
+                            your location:
+                            <input type="text" class="Revere__textbox Revere__text-location" id="RevereTextLocationQuestionsResponse-{{Id}}" data-reverefield="locationResponse" />
+                        </label>
+                    </div>
+                </fieldset>
+                <fieldset class="Revere__fieldset Revere__textareas">
+                    <legend>Your answer</legend>
+                    <div class="Revere__question-fields Revere__response-field Revere__required" id="RevereQuestionGroupQuestions-{{Id}}" data-fieldname="Response">
+                        <label class="Revere__label" for="RevereTextQuestionsResponse-{{Id}}">
+                            Share your thoughts:<span class="error">* required field</span>
+                            <textarea class="Revere__textarea Revere__textrea-response" rows="8" id="RevereTextQuestionsResponse-{{Id}}"></textarea>
+                        </label>
+                    </div>
+                </fieldset>
+                <div class="Revere__form-actions Revere__response-form-actions">
+                    <button class="Revere__btn-primary Revere__response-submit" id="RevereResponseButton-{{Id}}" data-submitcontentid="{{Id}}">submit</button>
+                    <button class="Revere__btn-default Revere__response-cancel" id="RevereCancelButton-{{Id}}" data-triggers="RevereResponseForm_question-{{Id}}">cancel</button>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <div class="Revere__content-empty" id="RevereContentEmpty-{{ItemId}}">
+        <h5>No questions have been asked about this product yet.</h5>
+    </div>
+    {{/if}}
+    <div class="Revere__forms" id="RevereQuestionsForm-{{ItemId}}">
+        <div class="Revere__explanation-qa" id="Revere__explanation-qa-{{ItemId}}">
+            <h5>Do you have a question?</h5>
+            <p>
+                To get your question answered
+            </p>
+            <ul>
+                <li>Do something</li>
+                <li>Write something else</li>
+                <li>
+                    Avoid
+                    <ul class="Revere__sub-list">
+                        <li>info that changes, such as price and promotional details</li>
+                        <li>inappropriate language and attitude</li>
+                        <li>info about other companies and websites</li>
+                        <li>personal info &mdash we want to protect your privacy!</li>
+                    </ul>
+                </li>
+                <li>Some other nonsense here</li>
+                <li>Have something else to say? Contact <a href="javascript: void(0);" target="_blank">Customer Service</a>. Your comment will be sent privately to our staff.</li>
+            </ul>
+        </div>
+        <fieldset class="Revere__fieldset Revere__personal">
+            <input type="hidden" id="RevereUserIdQuestion-{{ItemId}}" data-reverefield="userid" value="{{userID}}" />
+            <legend>About You</legend>
+            <div class="Revere__review-field Revere__required" id="RevereNicknameGroupQuestions-{{ItemId}}" data-fieldname="Nickname">
+                <label class="Revere__label" for="RevereTextNicknameQuestions-{{ItemId}}">
+                    your nickname:<span class="error">* required field</span>
+                    <input type="text" class="Revere__textbox Revere__text-nickname" id="RevereTextNicknameQuestions-{{ItemId}}" data-reverefield="nicknameQA" />
+                </label>
+            </div>
+            <div class="Revere__review-field Revere__required" id="RevereEmailGroupQuestions-{{ItemId}}" data-fieldname="Email">
+                <label class="Revere__label" for="RevereTextEmailQuestions-{{ItemId}}">
+                    your email:{{#if EmailRequired}}<span class="error">* required field</span>{{/if}}
+                    <input type="text" class="Revere__textbox Revere__text-email" id="RevereTextEmailQuestions-{{ItemId}}" data-reverefield="emailQA" />
+                </label>
+            </div>
+            <div class="Revere__review-field" id="RevereLocationGroupQuestions-{{ItemId}}" data-fieldname="Location">
+                <label class="Revere__label" for="RevereTextLocationQuestions-{{ItemId}}">
+                    your location:
+                    <input type="text" class="Revere__textbox Revere__text-location" id="RevereTextLocationQuestions-{{ItemId}}" data-reverefield="locationQA" />
+                </label>
+            </div>
+        </fieldset>
+        <fieldset class="Revere__fieldset Revere__textareas">
+            <legend>Your Question</legend>
+            <div class="Revere__review-field" id="RevereTitleGroupQuestions-{{ItemId}}" data-fieldname="Title">
+                <label class="Revere__label" for="RevereTextTitleQuestions-{{ItemId}}">
+                    headline:
+                    <input type="text" class="Revere__textbox" id="RevereTextTitleQuestions-{{ItemId}}" data-reverefield="titleQA" />
+                </label>
+            </div>
+            <div class="Revere__question-fields Revere__review-field Revere__required" id="RevereQuestionGroup-{{ItemId}}" data-fieldname="Question">
+                <label class="Revere__label" for="RevereTextGeneralQuestions-{{ItemId}}">
+                    ask away:<span class="error">* required field</span>
+                    <textarea class="Revere__textarea" rows="8" id="RevereTextQuestion-{{ItemId}}"></textarea>
+                </label>
+            </div>
+        </fieldset>
+        {{#if AllowImages}}
+        <div class="Revere__forms">
+            <fieldset class="Revere__fieldset">
+                <legend>Do you want to include an image?</legend>
+                <div class="Revere__review-field" id="RevereUserMediaQuestions-{{ItemId}}" data-fieldname="Media">
+                    <div class="Revere__media-input-wrapper">
+                        <label class="Revere__label" for="RevereQuestionsFileMedia-{{ItemId}}">your photo</label>
+                        <input id="RevereQuestionsFileMedia-{{ItemId}}" type="file" class="Revere__file" data-reverefield="media" />
+                    </div>
+                    <div class="Revere__uploaded-media">
+                        <img src="" alt="uploaded media" id="RevereQuestionsUploadedMedia-{{ItemId}}" />
+                        <a href="javascript: void(0);" class="Revere__remove-media" id="RevereQuestionRemoveMedia-{{ItemId}}">X</a>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        {{/if}}
+        <div class="Revere__form-actions">
+            <button class="Revere__btn-primary" id="RevereButtonQuestionSubmit-{{ItemId}}">submit</button>
+            <button class="Revere__btn-default" id="RevereButtonQuestionCancel-{{ItemId}}">cancel</button>
+        </div>
+    </div>
+</div>

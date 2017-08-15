@@ -1,0 +1,22 @@
+﻿<div class="Revere__wrapper snippet" id="RevereWrapperSnippet-{{ItemId}}">
+    {{#if Rating}}
+    <div class="Revere__snippet-stars"><img src="{{StarSrc}}" alt="{{Rating}} stars"></div>
+    <div class="Revere__snippet-overall" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <meta itemprop="reviewCount" content="{{Reviews.length}}" />
+        <meta itemprop="ratingCount" content="{{Reviews.length}}" />
+        <meta itemprop="bestRating" content="5" />
+        <meta itemprop="worstRating" content="1" />
+        <em itemprop="ratingValue">{{Rating}}</em> out of <em>5</em> based on <strong>{{ReviewCountText}}</strong>
+    </div>
+    {{/if}}
+    {{#if Likes}}
+    <div class="Revere__snippet-likes">
+        {{LikeCountText}}
+    </div>
+    {{/if}}
+    {{#if QuestionCount}}
+    <div class="Revere__snippet-likes">
+        {{QuestionAnswerText}}
+    </div>
+    {{/if}}
+</div>

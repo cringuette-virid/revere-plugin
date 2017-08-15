@@ -1,0 +1,195 @@
+﻿<div class="Revere__wrapper read" id="RevereWrapperRead-{{ItemId}}">
+    <h3 class="Revere__item-title">
+        {{#if Name}}<span>&ldquo;{{{Name}}}&rdquo;</span>{{/if}} Reviews
+    </h3>
+    {{#if Reviews}}
+    <div class="Revere__sort-wrapper">
+        <label for="RevereSortSelect-{{ItemId}}" class="Revere__label">sort by:</label>
+        <select id="RevereSortSelect-{{ItemId}}" class="Revere__select">
+            <option>----------</option>
+            <option value="dateDesc">
+                new reviews first
+            </option>
+            <option value="dateAsc">
+                old reviews first
+            </option>
+            <option value="ratingDesc">
+                high ratings first
+            </option>
+            <option value="ratingAsc">
+                low ratings first
+            </option>
+        </select>
+    </div>
+    {{/if}}
+    {{#each ReviewPages}}
+    <div class="Revere__page" data-pagenumber="{{PageNumber}}" id="ReverePage-{{../ItemId}}-{{PageNumber}}">
+        {{#each Reviews}}
+        <div class="Revere__review {{#if Featured}}featured{{/if}}" data-contentid="{{Id}}" id="RevereReview-{{Id}}" itemprop="review" itemscope itemtype="http://schema.org/Review">
+            {{#if Title}}<h4 class="Revere__review-title" itemprop="name">"{{{Title}}}"{{#if Featured}} <span class="Revere__featured-tag">* featured review</span>{{/if}}</h4>{{/if}}
+            <div class="Revere__author">
+                <em itemprop="datePublished">{{{CreateDate}}}</em> <span>{{#if ReviewerNickname}}by {{{ReviewerNickname}}}{{/if}}</span>
+                {{#if Location}}<span>from {{Location}}</span>{{/if}}
+                {{#each Badges}}
+                <div class="Revere__badge">
+                    <img src="{{Image}}" alt="{{Text}}" />
+                    <span class="Revere__badge-text">{{Text}}</span>
+                </div>
+                {{/each}}
+            </div>
+            {{#if Score}}
+            <div class="Revere__read-stars" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                <meta itemprop="reviewRating" content="{{Score}}" />
+                <meta itemprop="worstRating" content="1" />
+                <meta itemprop="bestRating" content="5" />
+                <img src="{{StarSrc}}" alt="{{Score}} stars">
+            </div>
+            {{/if}}
+            <div class="Revere__custom-ratings-wrap">
+                {{#if CustomRatings}}
+                <div class="Revere__custom-ratings-read">
+                    <h4 class="Revere__custom-ratings-name">{{Name}}</h4>
+                    {{#if IsSlider}}
+                    <div class="Revere__range-form-group Revere__custom-rating">
+                        {{#if OptionList}}
+                        {{#each OptionList}}
+                        <label class="Revere__range-label">
+                            {{.}}
+                        </label>
+                        {{/each}}
+                        {{/if}}
+                        <input type="range" min="1" max="5" disabled value="{{Score}}" />
+                    </div>
+                    {{/if}}
+                    {{#if IsCheckBox}}
+                    <div class="Revere__custom-rating">
+                        {{#if OptionList}}
+                        {{#each OptionList}}
+                        <span class="Revere__multi-option-tag">{{{.}}}</span>
+                        {{/each}}
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
+            </div>
+            <div class="Revere__review-content">
+                <h4 class="Revere__content-header">{{#if ReviewerNickname}}<em itemprop="author">{{{ReviewerNickname}}}</em>'s {{/if}}review:</h4>
+                <div itemprop="description">{{{Content}}}</div>
+            </div>
+            {{#if Image}}
+            <div class="Revere__review-image-wrap">
+                <p>
+                    {{#if ReviewerNickname}}{{ReviewerNickname}} uploaded an image:{{/if}}
+                </p>
+                <img src="{{Image}}" alt="{{Name}} review image" class="Revere__review-image" />
+            </div>
+            {{/if}}
+            <div class="Revere__flag-wrap" id="RevereFlags-{{Id}}">
+                <h5>
+                    Was this review helpful?
+                </h5>
+                <div class="Revere__flag-options">
+                    <button data-type="reviewflag" data-content="review" data-id="{{Id}}" data-value="helpful" data-clicked="false" class="Revere__btn-helpful{{FlagClass}}" {{#if FlagDisabled}} disabled {{/if}}>Yes (<span class="count">{{Upvotes}}</span>)</button>
+                    <button data-type="reviewflag" data-content="review" data-id="{{Id}}" data-value="unhelpful" data-clicked="false" class="Revere__btn-unhelpful{{FlagClass}}" {{#if FlagDisabled}} disabled {{/if}}>No (<span class="count">{{Downvotes}}</span>)</button>
+                    <button data-type="reviewflag" data-content="review" data-id="{{Id}}" data-value="inappropriate" data-clicked="false" class="Revere__btn-inappropriate{{FlagClass}}" {{#if FlagDisabled}} disabled {{/if}}>Inappropriate!</button>
+                </div>
+            </div>
+            {{#if Responses}}
+            <div class="Revere__responses Revere__review-responses">
+                <h5 class="Revere__responses-header">Comments</h5>
+                {{#each Responses}}
+                <div class="Revere__response-wrap {{CssClass}}" id="RevereReviewResponse-{{Id}}">
+                    <header class="Revere__response-header">
+                        <div class="Revere__author">
+                            {{#if Nickname}} From: {{{Nickname}}}{{/if}}
+                            {{#if Location}}<span> in {{Location}}</span>{{/if}}
+                            on {{{CreateDate}}}
+                            {{#if Badges}}
+                            <div class="Revere__badges">
+                                {{#each Badges}}
+                                <div class="Revere__badge">
+                                    <img src="{{Image}}" alt="{{Text}}" />
+                                    <span class="Revere__badge-text">{{Text}}</span>
+                                </div>
+                                {{/each}}
+                            </div>
+                            {{/if}}
+                        </div>
+                    </header>
+                    <div class="Revere__response-body-wrap">
+                        <div class="Revere__response-body">{{Content}}</div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+            {{#if ../../AllowReviewResponses }}
+            <div class="Revere__add-response-button-wrapper Revere__review-response">
+                <p class="Revere__response-invite">Would you like to comment on this review?</p>
+                <button class="Revere__response-trigger" id="RevereReviewResponseButton-{{Id}}" data-triggers="RevereResponseForm_review-{{Id}}">Add a Comment</button>
+            </div>
+            <div class="Revere__forms Revere__response-form Revere__review-response" id="RevereResponseForm_review-{{Id}}" data-userid="{{UserId}}" data-contentid="{{Id}}" data-companyid="{{CompanyId}}" data-responsetype="review">
+                <fieldset class="Revere__fieldset Revere__personal">
+                    <legend>About You</legend>
+                    <div class="Revere__response-field Revere__required" id="RevereNicknameGroupReviewResponse-{{Id}}" data-fieldname="Nickname">
+                        <label class="Revere__label" for="RevereTextNicknameReviewResponse-{{Id}}">
+                            your nickname:<span class="error">* required field</span>
+                        </label>
+                        <input type="text" class="Revere__textbox Revere__text-nickname" id="RevereTextNicknameReviewResponse-{{Id}}" data-reverefield="NicknameResponse" />
+                    </div>
+                    <div class="Revere__response-field {{#if ../../EmailRequired}}Revere__required{{/if}}" id="ReviewResponseEmail-{{Id}}" data-fieldname="Email">
+                        <label class="Revere__label" for="RevereTextEmailReviewResponse-{{Id}}">
+                            email:{{#if ../../EmailRequired}}<span class="error">* required field</span>{{/if}}
+                        </label>
+                        <input type="text" class="Revere__textbox Revere__text-email" id="RevereTextEmailReviewResponse-{{Id}}" data-reverefield="EmailResponse" />
+                    </div>
+                    <div class="Revere__response-field" id="ReviewResponseLocation-{{Id}}" data-fieldname="Location">
+                        <label class="Revere__label" for="RevereTextLocationReviewResponse-{{Id}}">
+                            location:
+                        </label>
+                        <input type="text" class="Revere__textbox Revere__text-location" id="RevereTextLocationReviewResponse-{{Id}}" data-reverefield="LocationResponse" />
+                    </div>
+                </fieldset>
+                <fieldset class="Revere__fieldset Revere__textareas">
+                    <legend>Your comment</legend>
+                    <div class="Revere__response-field Revere__required" id="RevereReviewResponseGroup-{{Id}}" data-fieldname="Response">
+                        <label class="Revere__label" for="RevereTextReviewResponse-{{Id}}">
+                            Share your thoughts:<span class="error">* required field</span>
+                        </label>
+                        <textarea class="Revere__textarea Revere__textrea-response" rows="8" id="RevereTextReviewResponse-{{Id}}"></textarea>
+                    </div>
+                </fieldset>
+                <div class="Revere__form-actions Revere__response-form-actions">
+                    <button class="Revere__btn-primary Revere__response-submit" data-submitcontentid="{{Id}}">submit</button>
+                    <button class="Revere__btn-default Revere__response-cancel" data-triggers="RevereResponseForm_review-{{Id}}">cancel</button>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+    {{/each}}
+    {{#if Pagination}}
+    <div class="Revere__pagination-wrapper" id="ReverePaginationWrapper-{{ItemId}}">
+        <ul class="Revere__pagination" id="ReverePagination-{{ItemId}}">
+            <li class="Revere__page-previous Revere__disabled"><a href="javascript: void(0);" id="RevereLinkPagePrevious-{{ItemId}}">&laquo; Previous</a></li>
+            <li class="Revere__page-count" id="ReverePageCount-{{ItemId}}">
+                {{Pagination/PageCount}}
+            </li>
+            <!--{{#if Pages}}{{#each Pages}}
+            <li class="numeric"><a href="javascript: void(0);" id="ReverePage-{{.}}" data-page-number="{{.}}">{{.}}</a></li>
+            {{/each}}{{/if}}-->
+            <li class="Revere__page-next Revere__disabled"><a href="javascript: void(0);" id="RevereLinkPageNext-{{ItemId}}">Next &raquo;</a></li>
+        </ul>
+    </div>
+    {{/if}}
+    {{#unless ReviewPages}}
+    <div class="Revere__content-empty" id="RevereContentEmpty-{{ItemId}}">
+        <h5>No reviews have been written for this product yet.</h5>
+        <!--<p>
+            Share your opinion about products you've purchased with others. Write reviews and rate products on a scale from 1 to 5. It's easy and takes only a few minutes.
+        </p>-->
+    </div>
+    {{/unless}}
+</div>

@@ -1,0 +1,164 @@
+﻿<div class="Revere__wrapper write" id="RevereWrapperWrite-{{ItemId}}">
+    <div class="Revere__forms" id="RevereWriteReviewForm-{{ItemId}}">
+        <h3 class="Revere__item-title">
+            Write A Review{{#if Name}} for <span>&ldquo;{{{Name}}}&rdquo;</span>{{/if}} 
+        </h3>
+        <div class="Revere__explanation" id="RevereExplanation-{{ItemId}}">
+            <p>
+                To see your review featured on our website:
+            </p>
+            <ul>
+                <li>Use the product before reviewing it</li>
+                <li>Focus on the product's features and be specific</li>
+                <li>
+                    Avoid
+                    <ul class="Revere__sub-list">
+                        <li>info that changes, such as price and promotional details</li>
+                        <li>inappropriate language and attitude</li>
+                        <li>info about other companies and websites</li>
+                        <li>personal info &mdash; we want to protect your privacy!</li>
+                    </ul>
+                </li>
+                <li>If you write review text, it should be at least 50 characters, otherwise your ratings may not count.</li>
+                <li>
+                    Have something else to say? Contact <a href="javascript: void(0);" target="_blank">Customer Service</a>. (Your comment will be
+                    sent privately to our staff.)
+                </li>
+            </ul>
+        </div>
+        <div class="Revere__forms Revere__about-you">
+            <fieldset class="Revere__fieldset Revere__personal">
+                <input type="hidden" id="RevereUserId-{{ItemId}}" data-reverefield="userid" value="{{UserId}}" />
+                <legend>About You</legend>
+                <div class="Revere__review-field Revere__required" id="RevereNicknameGroup-{{ItemId}}" data-fieldname="Nickname">
+                    <label class="Revere__label" for="RevereTextNickname-{{ItemId}}">
+                        your nickname:<span class="error">* required field</span>
+                    </label>
+                    <input type="text" class="Revere__text Revere__text-nickname" id="RevereTextNickname-{{ItemId}}"
+                           data-reverefield="nickname" />
+                </div>
+                <div class="Revere__review-field {{#if EmailRequired}}Revere__required{{/if}}" id="RevereEmailGroup-{{ItemId}}" data-fieldname="Email">
+                    <label class="Revere__label" for="RevereTextEmail-{{ItemId}}">
+                        your email:{{#if EmailRequired}}<span class="error">* required field</span>{{/if}}
+                    </label>
+                    <input type="text" class="Revere__text Revere__text-email" id="RevereTextEmail-{{ItemId}}" data-reverefield="email" />
+                </div>
+                <div class="Revere__review-field" data-fieldname="Location">
+                    <label class="Revere__label" for="RevereTextLocation-{{ItemId}}">
+                        your location:
+                    </label>
+                    <input type="text" class="Revere__text Revere__text-location" id="RevereTextLocation-{{ItemId}}" data-reverefield="location" />
+                </div>
+            </fieldset>
+        </div>
+        <div class="Revere__forms Revere__review-header">
+            <fieldset class="Revere__fieldset Revere__ratings">
+                <legend>Review Title</legend>
+                <div class="Revere__review-field" id="RevereReviewTitleGroup-{{ItemId}}" data-fieldname="Title">
+                    <label class="Revere__label" for="RevereTextReviewTitle-{{ItemId}}">
+                        headline:
+                    </label>
+                    <input type="text" class="Revere__text Revere__text-title" id="RevereTextReviewTitle-{{ItemId}}"
+                           data-reverefield="title" />
+                </div>
+            </fieldset>
+        </div>
+        {{#if ReviewType.ShowStarRating}}
+        <div class="Revere__overall-group" id="RevereOverallGroup-{{ItemId}}">
+            <fieldset class="Revere__fieldset">
+                <legend>Overall Rating</legend>
+                <div id="RevereOverall-{{ItemId}}" class="Revere__review-field Revere__overall Revere__required" data-fieldname="Overall">
+                    <!--<label for="RevereOverallHidden-{{ItemId}}">
+                Overall Rating:<span class="error">* required field</span>
+                <input type="radio" value="1" name="revere-rad-overall" class="Revere__logo" />
+                <input type="radio" value="2" name="revere-rad-overall" class="Revere__logo" />
+                <input type="radio" value="3" name="revere-rad-overall" class="Revere__logo" />
+                <input type="radio" value="4" name="revere-rad-overall" class="Revere__logo" />
+                <input type="radio" value="5" name="revere-rad-overall" class="Revere__logo" />
+                <span id="RevereRatingContainer-{{ItemId}}"></span>
+            </label>-->
+                    <span class="error">* required field</span>
+                    <input type="hidden" id="RevereOverallHidden-{{ItemId}}" value="" />
+                    {{{StarSrc}}}
+                </div>
+            </fieldset>
+        </div>
+        {{/if}}
+        {{#if ReviewType.CustomRatings}}
+        <div class="Revere__forms Revere__custom-ratings" id="RevereCustomRatings-{{ItemId}}">
+            {{#each ReviewType.CustomRatings}}
+            <fieldset class="Revere__fieldset">
+                <legend>{{Name}}</legend>
+                <div class="Revere__review-field Revere__custom-rating Revere__custom-rating-{{Id}}"
+                     id="RevereCustomRatingsGroup-{{../ItemId}}-{{Id}}">
+                    {{#if IsSlider}}
+                    <div class="Revere__range-form-group Revere__custom-rating">
+                        {{#each OptionList}}
+                        <label for="RevereRange-{{../../ItemId}}-{{../Id}}" class="Revere__range-label">
+                            {{Value}}
+                        </label>
+                        {{/each}}
+                        <input type="range" name="RevereCustomRating-{{../ItemId}}-{{Id}}" id="RevereRange-{{../ItemId}}-{{Id}}" min="1" max="5" />
+                    </div>
+                    {{/if}}
+                    {{#if IsCheckBox}}
+                    <div class="Revere__review-field Revere__checkbox-form-group">
+                        {{#each OptionList}}
+                        <label class="Revere__checkbox" for="RevereCheckbox-{{PropertyName}}-{{../../ItemId}}-{{../Id}}">
+                            <input type="checkbox" id="RevereCheckbox-{{PropertyName}}-{{../../ItemId}}-{{../Id}}" name="RevereCustomRating-{{../../ItemId}}-{{../Id}}" value="{{Value}}" /> {{Value}}
+                        </label>
+                        {{/each}}
+                    </div>
+                    {{/if}}
+                </div>
+            </fieldset>
+            {{/each}}
+        </div>
+        {{/if}}
+        <div class="Revere__forms Revere__review-content">
+            <fieldset class="Revere__fieldset Revere__textareas">
+                <legend>Your Review</legend>
+                <div class="Revere__review-field {{#unless AllowRatingsWithoutReview}}Revere__required{{/unless}}" id="RevereReviewGroup-{{ItemId}}" data-fieldname="Review">
+                    <label class="Revere__label" for="RevereTextGeneral-{{ItemId}}">
+                        <em>{{Name}}</em> {{#unless AllowRatingsWithoutReview}}<span class="error">* required field</span>{{/unless}}
+                    </label>
+                    <textarea class="Revere__textarea" rows="8" id="RevereTextGeneral-{{ItemId}}"></textarea>
+                </div>
+            </fieldset>
+        </div>
+        {{#if AllowImages}}
+        <div class="Revere__forms Revere__review-media">
+            <fieldset class="Revere__fieldset">
+                <legend>Do you want to include an image?</legend>
+                <div class="Revere__review-field" id="RevereUserMedia-{{ItemId}}" data-fieldname="Media">
+                    <div class="Revere__media-input-wrapper">
+                        <label class="Revere__label" for="RevereWriteFileMedia-{{ItemId}}">your photo:</label>
+                        <input id="RevereWriteFileMedia-{{ItemId}}" type="file" class="Revere__file" data-reverefield="media" />
+                    </div>
+                    <div class="Revere__uploaded-media">
+                        <img src="" alt="uploaded media" id="RevereWriteUploadedMedia-{{ItemId}}" />
+                        <a href="javascript: void(0);" class="Revere__remove-media" id="RevereWriteRemoveMedia-{{ItemId}}">X</a>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        {{/if}}
+        <div class="Revere__forms Revere__facebook">
+            <fieldset class="Revere__fieldset">
+                <legend>Post Review to Facebook</legend>
+                <div class="Revere__review-field Revere__checkbox-form-group">
+                    <label for="RevereCheckboxFacebook-{{ItemId}}" class="Revere__checkbox Revere__Facebook-check">
+                        <input type="checkbox" id="RevereCheckboxFacebook-{{ItemId}}" />
+                        <img src="{{FBIcon}}" alt="facebook">
+                        <span>post my review to facebook</span>
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="Revere__form-actions ">
+            <div class="Revere__loading" id="RevereWriteLoading-{{ItemId}}"></div>
+            <button class="Revere__btn-primary Revere__btn-write-submit" id="RevereButtonWriteSubmit-{{ItemId}}">Submit</button>
+            <button class="Revere__btn-default Revere__btn-write-cancel" id="RevereButtonWriteCancel-{{ItemId}}">Cancel</button>
+        </div>
+    </div>
+</div>
