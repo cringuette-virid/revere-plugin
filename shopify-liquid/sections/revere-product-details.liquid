@@ -1,0 +1,72 @@
+{% schema %}
+  {
+    "name": "Revere Product Reviews",
+    "settings": [
+      {
+        "type": "number",
+        "id": "margins",
+        "label": "Margins",
+        "default": 15
+      },
+      {
+        "type": "checkbox",
+        "id": "snippet",
+        "label": "Show Snippet",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "read",
+        "label": "Show Read",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "write",
+        "label": "Show Write",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "questions",
+        "label": "Show Questions",
+        "default": true
+      }
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+
+  <style>
+    {% if section.settings.margins > 0 %}
+    .revere-wrap {
+      margin-left: {{section.settings.margins}}px;
+      margin-right: {{section.settings.margins}}px;
+    }
+    {% endif %}
+    
+    .Revere__wrap.Revere__default .Revere__question, .Revere__wrap.Revere__default .Revere__review {
+      width: initial;
+    }
+  </style>
+
+<div id="revere-wrap" class="revere-wrap">
+  {% if section.settings.snippet %}
+  {% include 'revere-product-snippet'%}
+  {% endif %}
+  {% if section.settings.read %}
+  {% include 'revere-product-read'%}
+  {% endif %}
+  {% if section.settings.write %}
+  {% include 'revere-product-write'%}
+  {% endif %}
+  {% if section.settings.questions %}
+  {% include 'revere-product-questions'%}
+  {% endif %}
+</div>
